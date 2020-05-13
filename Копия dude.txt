@@ -1,0 +1,345 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <cstdlib>
+using namespace std;
+int main()
+{int i,number,a,b,c,t;
+	
+	vector <int> pol1;
+	vector <int> pol2;
+	vector <int> pol3 (5);
+	vector <int> pold1(4);
+	vector <int> pold2(5);
+	pold1[0]=1;pold1[1]=1;pold1[2]=0;pold1[3]=1;
+	pold2[0]=0;pold2[1]=1;pold2[2]=1;pold2[3]=0;pold2[4]=1;
+	
+	cout<<"введите коэффициенты первого многочлена"<<endl;
+	for (i = 0; i < 3; i++)
+	{
+		cout << "a" << i  << "="; 
+		cin >> number;
+		pol1.push_back(number); 
+			}
+										for (i=0; i < pol1.size(); i++)
+											if(pol1[i] != 0)
+											{
+												cout<<pol1[i]<<"x^"<<i<<" ";
+											}		
+	cout << endl;
+	cout<<"введите коэффициенты второго многочлена"<<endl;
+	for (i = 0; i < 3; i++)
+	{
+		cout << "a" << i  << "="; 
+		cin >> number;
+		pol2.push_back(number);
+		
+	}
+										for (i=0; i < pol2.size(); i++)
+											if (pol2[i] != 0)
+											{
+												cout<<pol2[i]<<"x^"<<i<<" ";
+											}	
+										
+
+	cout << endl;
+	int num,n,s,y;
+	cout<<"1 - сложить, 2 - умножить"<<endl;
+	cin>>num;
+	if (num == 1) 
+	{
+		for (i = 0; i < 3; i++)
+		{
+			n = pol1[i] + pol2[i];
+			
+			if (n >= 5)
+			{
+				n = n % 5;
+			}
+			if (n != 0) 
+			{
+				cout<<n<<"x^"<<i<<" "; 
+			}
+
+		}
+	}
+	cout<<endl;
+	if (num == 2 )
+	{
+		for (i = 0; i < 3; i++)
+		{
+			for(y = 0; y < 3; y++)
+			{
+				if( pol1[i] != 0 and pol2[y] != 0 )
+				{
+					n = pol1[i] * pol2[y];
+					s = i + y;
+					cout<<n<<s;
+					pol3[s] = n;
+			 	}
+			}
+		}
+	// проверка многочлена
+	cout<<endl;
+	int step = 0;
+	for (i = 0; i < pol3.size(); i++)
+	{
+		n = pol3[i] % 5;
+		if(n != 0 and i > 2)
+		{step = i;
+			cout<<"многочлен";
+
+		}
+	}
+						if (step < 2) // вывод многочлена если его степень не выше степени 3
+						{
+							for (i = 0; i < pol3.size(); i++)
+							{
+								n = pol3[i] % 5;
+								if (n!=0)
+								{
+									cout<<n<<"x^"<<i<<" ";
+								}
+							}
+						}
+	//делим многочлен
+						while (step >= 3)
+						{
+
+
+												if(step == 3)
+												{
+													for (i = 0; i < pol3.size(); i++)
+													{
+														pold1[i] = pold1[i] * pol3[3];
+														pol3[i] = (pol3[i] - pold1[i]) % 5;
+															if (pol3[i]!=0)
+																		{
+																			//cout<<pol3[i];;
+																		
+															if (i > 0)
+																		{
+																			//cout<<"x^"<<i<<"";
+																		}
+																		}			
+													}
+
+												}
+																					if(step == 4)
+																					{
+
+																						for (i = 0; i < pol3.size(); i++)
+																						{
+																							pold2[i] = pold2[i] * pol3[4];
+																							pol3[i] = (pol3[i] - pold2[i]) % 5;
+																								if (pol3[i]!=0)
+																											{
+																												//cout<<pol3[i];;
+																											
+																								if (i > 0)
+																											{
+																												//cout<<"x^"<<i<<"";
+																											}
+																											}			
+																						}
+																					
+																					}
+								for (i = 0; i < pol3.size(); i++)
+								{
+									n = pol3[i] % 5;
+									if(n != 0 and i > 2)
+									{step = i;
+										//cout<<"многочлен";
+
+									}	if(n != 0 and i < 2)
+									{step = 0;
+										//cout<<"многочлен";
+
+									}	
+
+													}	
+													}														
+	}
+for (i=0;i<pol3.size();i++)
+	{n=pol3[i];
+		if(n!=0)
+		{
+
+		cout<<pol3[i];
+		if (i>0){
+			cout<<"x^"<<i<<" ";
+		}
+	}
+	}
+	cout<<endl;
+
+
+
+	if (num == 3)//нахождение примитивного члена
+	{pol1.clear();
+	 pol2.clear();	
+	 //pol3.clear();	
+		for (i = 0; i < 3; i++)
+	{
+		cout << "a" << i  << "="; 
+		cin >> number;
+		pol1.push_back(number); 
+			}
+										for (i=0; i < pol1.size(); i++)
+											if(pol1[i] != 0)
+											{
+												cout<<pol1[i]<<"x^"<<i<<" ";
+											}
+	cout<<endl;										
+	for (i = 0; i < 3; i++)
+	{
+		cout << "a" << i  << "="; 
+		cin >> number;
+		pol2.push_back(number);
+		
+	}
+										for (i=0; i < pol2.size(); i++)
+											if (pol2[i] != 0)
+											{
+												cout<<pol2[i]<<"x^"<<i<<" ";
+											}	
+int hu,b;
+ofstream dude("dude.txt");
+for (hu=0;hu<123;hu++)
+{	
+	pold1[0]=1;pold1[1]=1;pold1[2]=0;pold1[3]=1;
+	pold2[0]=0;pold2[1]=1;pold2[2]=1;pold2[3]=0;pold2[4]=1;
+	pol3[0]=0;pol3[1]=0;pol3[2]=0;pol3[3]=0;pol3[4]=0;
+	cout<<endl<<"цикл "<<hu+1<<endl;
+		int step = 0;
+										
+
+		for (i = 0; i < 3; i++)
+		{b=0;
+			for(y = 0; y < 3; y++)
+			{
+				if( pol1[i] != 0 and pol2[y] != 0 )
+				{
+					n = pol1[i] * pol2[y];
+					s = i + y;
+					//cout<<n<<s<<endl;
+					b=(pol3[s]+n) % 5;
+					
+					pol3[s] = b ;
+			 	}
+			}
+		}
+
+
+
+	for (i = 0; i < pol3.size(); i++)
+	{
+		n = pol3[i] % 5;
+		if(n != 0 and i > 2)
+		{step = i;
+
+		}
+	}		
+	cout<<"step-"<<step;									
+if (step < 2) // вывод многочлена если его степень не выше степени 3
+						{
+							for (i = 0; i < pol3.size(); i++)
+							{
+								n = pol3[i] % 5;
+								if (n!=0)
+								{
+									cout<<n<<"x^"<<i<<" ";
+								}
+							}
+						}
+	//делим многочлен
+						while (step >= 3)
+						{
+
+
+												if(step == 3)
+													b=0;
+												{for (i = 0; i < pol3.size(); i++)
+													{b= pol3[3];
+
+													}
+													for (i = 0; i < pol3.size(); i++)
+													{
+														pold1[i] = pold1[i] * b;
+														pol3[i] = (pol3[i] - pold1[i]) % 5;
+														
+																cout<<pol3[i];	
+													}
+													
+
+												}
+																					if(step == 4)
+																					{b=0;
+																						for (i = 0; i < pol3.size(); i++)
+																							{b= pol3[4];
+
+																							}
+																						for (i = 0; i < pol3.size(); i++)
+																						{cout<<"polinom3"<<pol3[i];
+																							pold2[i] = pold2[i] * b;
+																							pol3[i] = (pol3[i] - pold2[i]) % 5;
+
+																									cout<<pol3[i];		
+																						}
+																						for (i = 0; i < pol3.size(); i++)
+																						{
+																							cout<<pol3[i]<<"'";
+																						}
+																					
+																					}
+								for (i = 0; i < pol3.size(); i++)
+								{n=0;
+									n = pol3[i] % 5;
+									if(n != 0 and i > 2)
+									{step = i;
+										//cout<<"многочлен";
+
+									}	if(n != 0 and i < 2)
+									{step = 0;
+										//cout<<"многочлен";
+
+									}	
+									if (n==0){step=0;}
+
+													}
+													pol1=pol3;	
+													}	pol1=pol3;					
+	cout<<endl<<"pol1="<<endl;
+	for (i=0;i<pol1.size();i++)
+	{n=pol1[i];
+		if(n!=0)
+		{
+
+		cout<<pol1[i];
+		if (i>0){
+			cout<<"x^"<<i<<" ";
+		}
+	}
+	}
+	cout<<endl<<"pol3="<<endl;
+	dude<<"x^"<<hu+2<<"= ";
+	for (i=0;i<pol3.size();i++)
+
+	{
+		n=pol3[i] % 5;
+		if(n!=0)
+		{while(n<0){n=n+5;}
+		if (i==0){ t=1;cout<<n<<" ";dude<<n;}
+		
+		if (i>0){if (t==1){dude<<"+";}
+			cout<<n<<"x^"<<i<<" "; dude<<n<<"x^"<<i<<" ";
+		}
+
+	}	}dude<<endl; t=0;
+
+}
+dude.close();
+}
+	cout<<endl;
+}
