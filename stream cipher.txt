@@ -1,0 +1,323 @@
+﻿#include <iostream>
+#include <string>
+#include <cmath>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+#include <fstream>
+#include <math.h>
+using namespace std;
+void delacc();
+
+int main()
+{
+	
+	
+	setlocale(LC_CTYPE, "Russian");
+	string seed;
+
+	long int  length, pos1, pos2;
+	int pole;
+	int number=0;
+	cout << "size pole" << endl;
+	cin >> pole;
+
+	
+	cout << "Type the length and seed " << endl;
+	cin >> length ;
+	int i;
+	char ac;
+	vector <char> alfavit;//вектор с авлфавитом
+
+	for ( ac = 'А'; ac <= 'я'; ac++)
+	{
+		
+		alfavit.push_back(ac);
+		
+	}
+	
+
+	for (ac = ' '; ac <= '9'; ac++)
+	{
+
+		alfavit.push_back(ac);
+
+	}
+	int chislo=0;
+	
+	
+	
+
+
+	for (i = 0; i < alfavit.size(); ++i)
+	{
+		cout << alfavit[i] << ends;
+		chislo = i+1;
+	}
+	cout << endl;
+	cout << "chislosbh  " << chislo<<endl;
+	int stepen=1;
+	int bit = 0;
+
+		for (i = 1; i < 100; ++i)// получаем количество бит на слово
+		{
+			if (stepen < chislo)
+			{
+				stepen = pow(pole, i);
+				bit = i;
+			}
+			
+
+		}
+	
+	cout << "stepen= " << stepen << endl;
+	cout << "kol-vo bit " << bit<< endl;
+	vector<int> firstit(length); //вектор firstit
+
+	vector<int> firstitd(length);//вектор firstitd
+
+	int *pointer = firstit.data();//указатель на превый элемент вектора firstit
+	int *pointerd = firstitd.data();//указатель на превый элемент вектора firstitd
+	firstit.clear();
+	for (i = 0; i < length; ++i)
+	{
+		cout << "Type the " << i + 1 << " number"; cout << endl;
+		cin >> number;
+		firstit.push_back(number); 
+	}
+	cout << endl;
+
+
+
+	cout << "firstit output: ";// вывод указывая на ячейку
+	for ( i = 0; i < firstit.size(); ++i)
+	{
+		cout << firstit[i] << ends;
+		
+	}
+	cout << endl;
+
+
+	firstitd = firstit;
+	cout << "firstitd output: ";// вывод указывая на ячейку
+	for (i = 0; i < firstitd.size(); ++i)
+	{
+		cout << firstitd[i] << ends;
+
+	}
+	cout << endl;
+
+		cout << "Polynomial tap positions" << endl;
+			cin >> pos1>>pos2;
+			cout << pos1 << pos2 << endl;
+
+			vector <int> registr;
+	vector <int> pusy;//вектор pusy
+	int *pusyd = pusy.data();// указатель на первый элемент вектора pusy
+	int ch=0;
+
+	while (pusy != firstitd)// регистр 
+	{
+		int n = 0;
+		n = firstit[pos1] + firstit[pos2];
+		while (n >= pole)
+		{
+			int a = n - pole;
+			n = a;
+		}
+			cout << "последовательность n" << n; cout << endl;
+			registr.push_back(n);
+			pusy.clear();
+			pusy.push_back(n);
+			for (i = 0; i < firstit.size() - 1; ++i)
+		{
+			ch = firstit[i];
+			pusy.push_back(ch);
+		}
+		firstit = pusy;
+	}
+	cout << "firstit last output: ";// вывод указывая на ячейку
+	for (i = 0; i < firstit.size(); ++i)
+	{
+		cout << firstit[i] << ends;
+
+	}
+	cout << endl;
+	cout << "registr last output: ";// вывод указывая на ячейку
+	for (i = 0; i < registr.size(); ++i)
+	{
+		cout << registr[i] << ends;
+
+	}
+	cout << endl;
+	
+
+	//считываем и переводим
+
+	std:: ifstream text("text.txt");
+	fstream chtext("chtext.txt");
+	fstream shifr("shifr.txt");
+	
+	int n = 0;
+	char bukva;
+	int chbukva;
+	int a ;
+	int b;
+	int c;
+	vector<int> pasiv;
+	int simv = 0;
+
+	while (text.get(bukva))//количество символов в файле
+
+	{
+		simv++;
+	}
+	text.close();
+	cout << "количество символов в файле =" << simv;
+	text.open("text.txt");
+	int y;
+	while (text.get(bukva))
+	
+	{
+		
+			
+		
+
+			cout << "буква из текста " << bukva << endl;
+			for (i = 0; i < alfavit.size(); ++i)
+			{
+				if (bukva == alfavit[i])
+				{
+					a = i + 1;
+					if (a != 0)
+
+					{
+						while (a != 0)
+						{
+							c = (int)(a / pole);
+							b = a - (pole*c);
+
+							
+
+																	
+
+							pasiv.push_back(b);
+							
+														
+							cout <<"bukva v razreze"<<b<<endl;
+							a = c;
+						}
+						
+					}
+
+					
+
+				}
+			}
+			int razmer = 0; //добавляем ноль для коректности
+			int ty = 0;
+			for (i = 0; i < pasiv.size(); ++i)
+			{
+				
+				razmer = i;
+
+
+			}
+			cout << endl;
+			if (razmer< bit)
+			{
+				
+				ty = bit - razmer;
+				for (i = 1; i <ty; ++i)
+				{
+					pasiv.push_back(0);
+				}
+			}
+
+
+			cout << "pasiv output: ";// вывод указывая на ячейку
+					for (i = 0; i < pasiv.size(); ++i)
+					{
+						cout<<pasiv[i];
+						
+
+					}
+					cout << endl;
+
+					
+
+					vector<int>shpasiv; 
+					int bar = 0;
+					int y;
+
+
+
+
+				
+
+
+					for (i =0; i < pasiv.size(); ++i)// получаем правильную интерпритацию буква в чило и записавем в файл
+					{
+						int n = 0;
+						n = firstit[pos1] + firstit[pos2];
+						while (n >= pole)
+						{
+							int a = n - pole;
+							n = a;
+							cout << "perv n" << n << endl;
+						}
+						cout << "последовательность n" << n; cout << endl;
+						registr.push_back(n);
+						pusy.clear();
+						pusy.push_back(n);
+						for (y = 0; y < firstit.size() - 1; ++y)
+						{
+							ch = firstit[y];
+							pusy.push_back(ch);
+						}
+						firstit = pusy;
+
+						y = (bit-1)- i; 
+						bar = pasiv[y];
+						shpasiv.push_back(bar);
+						int gaga;
+						gaga = bar + n;
+						while (gaga >= pole)
+						{
+							int gagas;
+							gagas = gaga - pole;
+							gaga = gagas;
+						}
+						shifr << gaga;
+					chtext << bar;
+					}
+
+
+
+					pasiv.clear();
+
+					cout << "sifr";
+					for (i = 0; i < shpasiv.size(); ++i)
+					{
+						cout << shpasiv[i];
+
+
+					}
+					cout << endl;
+
+
+
+					
+	
+		}
+
+		
+	//закрытие потока
+	text.close();
+	chtext.close();
+	
+
+
+
+	system("pause");
+}
